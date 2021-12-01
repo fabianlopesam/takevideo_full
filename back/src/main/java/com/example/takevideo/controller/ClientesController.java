@@ -16,14 +16,14 @@ public class ClientesController {
     @Autowired
     private ClientesRepository clientesRepository;
 
-    @PostMapping(value = "salvar")
+    @PostMapping(value = "/salvar")
     @ResponseBody
     public ResponseEntity<Cliente> salvar (@RequestBody Cliente cliente){
         Cliente novo = clientesRepository.save(cliente);
         return new ResponseEntity<>(novo, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "todos")
+    @GetMapping(value = "/todos")
     public @ResponseBody Iterable<Cliente> todosClientes() {
         return clientesRepository.findAll();
     }
@@ -34,14 +34,14 @@ public class ClientesController {
         return ResponseEntity.ok().body(b);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Cliente> deletar(@PathVariable Long id){
         Cliente d = clientesRepository.findById(id).get();
         clientesRepository.delete(d);
         return ResponseEntity.ok().body(d);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public  ResponseEntity<Cliente> alterar (@RequestBody Cliente cliente, @PathVariable Long id) {
         Cliente altera = clientesRepository.findById(id).get();
         altera.setCodigo(cliente.getCodigo());
