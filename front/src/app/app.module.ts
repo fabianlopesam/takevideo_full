@@ -33,6 +33,9 @@ import {DxDataGridModule} from "devextreme-angular";
     DxDataGridModule
   ],
   providers: [AuthService, ScreenService, AppInfoService, ClientesService],
+  exports: [
+    ClientesComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
