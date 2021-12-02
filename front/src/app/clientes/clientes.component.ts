@@ -27,28 +27,32 @@ export class ClientesComponent implements OnInit {
   salvarCliente(event: any) {
 
     event.cancel = true;
+    console.log(1);
+    event.promise = this.processSaving(event);
+    console.log(2);
+    }
+
+  async processSaving(event: any) {
 
     for (let change of event.changes) {
-      event.promise = this.processSaving(change);
-    }
-  }
+      console.log(3);
+      try {
+        switch (change.type) {
+          case 'insert':
+            return this.insereCliente(change);
+          case 'update':
+            return this.updateCliente(change);
+          case 'remove':
+            return this.removeCliente(change);
+          default:
+            ;
+            break;
 
-  async processSaving(change: any) {
+        }
+      } finally {
 
-    try {
-            switch (change.type) {
-              case 'insert':
-                return this.insereCliente(change);
-              case 'update':
-                return this.updateCliente(change);
-              case 'remove':
-                return this.removeCliente(change);
-              default: ;
-                break;
-
-            }
-    } finally {
-
+      }
+      console.log(4);
     }
   }
 
@@ -119,9 +123,11 @@ export class ClientesComponent implements OnInit {
 
     //change.key.value = JSON.stringify(chaves);
     //console.log(change.key);
-
+    console.log(5);
     const data = await this._clienteService.putClientes(change.key, change.key.id ).toPromise();
+    console.log(6);
     this.atualizaGrid(change, data);
+    console.log(7);
   }
 
   async removeCliente(change: any) {
