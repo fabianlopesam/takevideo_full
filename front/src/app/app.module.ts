@@ -7,15 +7,17 @@ import { FooterModule, ResetPasswordFormModule, CreateAccountFormModule, ChangeP
 import { AuthService, ScreenService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
-import { ClientesComponent } from './clientes/clientes.component';
+import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ClientesService} from "./shared/services/clientes.service";
 import {HttpClientModule} from "@angular/common/http";
 import {DxDataGridModule} from "devextreme-angular";
+import { FilmesComponent } from './pages/filmes/filmes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientesComponent
+    ClientesComponent,
+    FilmesComponent
   ],
   imports: [
     BrowserModule,
