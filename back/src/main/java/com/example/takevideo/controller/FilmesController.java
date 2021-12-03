@@ -14,14 +14,14 @@ public class FilmesController {
     @Autowired
     private FilmesRepository filmesRepository;
 
-    @PostMapping(value = "salvar")
+    @PostMapping(value = "/salvar")
     @ResponseBody
     public ResponseEntity<Filme> salvar (@RequestBody Filme filme){
         Filme novo = filmesRepository.save(filme);
         return new ResponseEntity<>(novo, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "todos")
+    @GetMapping(value = "/todos")
     public @ResponseBody Iterable<Filme> todosFilmes() {
         return filmesRepository.findAll();
     }
@@ -32,14 +32,14 @@ public class FilmesController {
         return ResponseEntity.ok().body(b);
     }
 
-    @DeleteMapping("{id}")
-    public String deletar(Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Filme> deletar(@PathVariable Long id){
         Filme d = filmesRepository.findById(id).get();
         filmesRepository.delete(d);
-        return "Deletado";
+        return ResponseEntity.ok().body(d);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public  ResponseEntity<Filme> alterar (@RequestBody Filme filme, @PathVariable Long id) {
         Filme altera = filmesRepository.findById(id).get();
         altera.setCodigo(filme.getCodigo());
