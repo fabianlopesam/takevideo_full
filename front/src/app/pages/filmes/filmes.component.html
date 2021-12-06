@@ -1,1 +1,35 @@
-<p>filmes works!</p>
+<h2 class="content-block">Filmes</h2>
+<div class="content-block">
+  <div class="dx-card responsive-paddings">
+    <div class="logos-container">
+      <dx-data-grid #filmes_grid
+                    id="filmes_grid"
+                    [dataSource]="filmes"
+                    [repaintChangesOnly]="true"
+                    [showBorders]="true"
+                    [remoteOperations]="true"
+                    (onRowInserting)="inserirFilmes($event)"
+                    (onRowUpdating)="alterarFilmes($event)"
+                    (onRowRemoving)="deletarFilmes($event)"
+      >
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-editing
+          mode="row"
+          [allowAdding]="true"
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+          [confirmDelete]="false"
+        >
+        </dxo-editing>
+
+        <dxi-column dataField="id" caption="ID" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="codigo" caption="Código"></dxi-column>
+        <dxi-column dataField="nome" caption="Nome"></dxi-column>
+
+      </dx-data-grid>
+
+    </div>
+  </div>
+</div>
+
+

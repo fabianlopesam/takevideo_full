@@ -12,6 +12,7 @@ import { ClientesService} from "./shared/services/clientes.service";
 import {HttpClientModule} from "@angular/common/http";
 import {DxDataGridModule} from "devextreme-angular";
 import { FilmesComponent } from './pages/filmes/filmes.component';
+import { FilmesService} from "./shared/services/filmes.service";
 
 @NgModule({
   declarations: [
@@ -34,9 +35,10 @@ import { FilmesComponent } from './pages/filmes/filmes.component';
     HttpClientModule,
     DxDataGridModule
   ],
-  providers: [AuthService, ScreenService, AppInfoService, ClientesService],
+  providers: [AuthService, ScreenService, AppInfoService, ClientesService, FilmesService],
   exports: [
-    ClientesComponent
+    ClientesComponent,
+    FilmesComponent
   ],
   bootstrap: [AppComponent]
 })
