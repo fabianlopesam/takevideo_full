@@ -1,0 +1,16 @@
+<div class="content-block dx-card responsive-paddings">
+  <div class="form-avatar">
+    <div class="dx-fieldset">
+      <div class="dx-fieldset-header">Clientes</div>
+      <div class="dx-field">
+        <div class="dx-field-value">
+          <dx-select-box
+            [dataSource]="clientes"
+            displayExpr="nome"
+            (onValueChanged)="clienteselecionado($event)"
+          ></dx-select-box>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
