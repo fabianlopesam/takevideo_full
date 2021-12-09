@@ -13,6 +13,10 @@ export const navigation = [
     path: '/filmes'
   },
   {
+    text: 'Locacoes',
+    path: '/locacoes'
+  },
+  {
     text: 'Examples',
     icon: 'folder',
     items: [

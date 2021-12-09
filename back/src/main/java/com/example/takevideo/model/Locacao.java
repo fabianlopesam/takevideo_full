@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +17,8 @@ import java.util.List;
 @Table(name = "locacoes")
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Locacao {
+public class Locacao implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +28,17 @@ public class Locacao {
     @ManyToOne
     private Cliente cliente;
 
+    //@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDate datalocacao;
+    //@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDate datadevolucao;
 
-    @OneToMany(mappedBy = "locacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "locacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemLocacao> itens = new ArrayList<>();
+
+
+
+
 
     private BigDecimal valorlocacao;
 

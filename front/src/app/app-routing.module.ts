@@ -8,6 +8,7 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import {DxButtonModule, DxDataGridModule, DxFormModule} from 'devextreme-angular';
 import { ClientesComponent } from "./pages/clientes/clientes.component";
 import { FilmesComponent} from "./pages/filmes/filmes.component";
+import {LocacoesComponent} from "./pages/locacoes/locacoes.component";
 
 const routes: Routes = [
   {
@@ -25,7 +26,11 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [ AuthGuardService ]
   },
-
+  {
+    path: 'locacoes',
+    component: LocacoesComponent,
+    canActivate: [ AuthGuardService ]
+  },
   {
     path: 'clientes',
     component: ClientesComponent,

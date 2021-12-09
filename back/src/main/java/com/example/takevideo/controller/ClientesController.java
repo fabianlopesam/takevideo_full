@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "http://localhost:4200; http://localhost:8080")
-
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/clientes") // This means URL's start with /demo (after Application path)
 

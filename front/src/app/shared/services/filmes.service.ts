@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Filmes} from "../models/filmes";
+import {Filme} from "../model/filme";
 import {take, tap} from "rxjs/operators";
 
 @Injectable({
@@ -13,7 +13,7 @@ export class FilmesService {
   constructor(private http:HttpClient) { }
 
   getFilmes() {
-    return this.http.get<Filmes[]>(this.filmesAPI + 'todos')
+    return this.http.get<Filme[]>(this.filmesAPI + 'todos')
       .pipe( tap(console.log) )
   }
 
@@ -22,7 +22,7 @@ export class FilmesService {
   }
 
   putFilmes(filmes: JSON, id:number ) {
-    return this.http.put<Filmes>(this.filmesAPI + id, filmes);
+    return this.http.put<Filme>(this.filmesAPI + id, filmes);
   }
 
   deleteFilmes(id:number){

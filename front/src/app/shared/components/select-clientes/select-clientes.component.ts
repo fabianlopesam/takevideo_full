@@ -1,6 +1,5 @@
 import {Component, enableProdMode, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import DataSource from 'devextreme/data/data_source';
-import * as AspNetData from 'devextreme-aspnet-data-nojquery';
+import {ClienteService} from "../../services/cliente.service";
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -17,29 +16,20 @@ export class SelectClientesComponent implements OnInit {
 
   @Input() dadoscliente: any;
 
-  @Output() dadosclienteOut: EventEmitter<any> = new EventEmitter();
+  @Output() dadosclienteChange: EventEmitter<any> = new EventEmitter();
 
   clienteselecionado(event: any) {
 
     this.dadoscliente = event.value;
-    this.dadosclienteOut.emit(event.value);
+    this.dadosclienteChange.emit(event.value);
   }
 
-  constructor() {
+  constructor( public _clienteService: ClienteService) {
 
-    this.clientes = new DataSource({
-      store: AspNetData.createStore({
-        key: 'id',
-        loadUrl: '',
-      }),
-      sort: 'id',
-      group: 'id.id',
-      paginate: true,
-      pageSize: 1,
-    });
   }
 
   ngOnInit(): void {
+    this._clienteService.getClientes().subscribe(dados => this.clientes = dados);
   }
 
 }

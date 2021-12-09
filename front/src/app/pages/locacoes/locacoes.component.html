@@ -1,1 +1,89 @@
-<app-select-clientes></app-select-clientes>
+<h2>Locações</h2>
+<div class="dx-form">
+  <div class="dx-card">
+    <div class="dx-fieldset">
+      <div class="dx-fieldset-header">Cliente:</div>
+      <div class="dx-field">
+        <app-select-clientes
+          [(dadoscliente)]="cliente"
+          (dadosclienteChange)="clienteChange($event)"
+        ></app-select-clientes>
+        <div class="dx-card">
+          <div class="dx-field-value">Nome: {{cliente ? cliente.nome : 'Vazio'}}</div>
+          <div class="dx-field-value">Código: {{cliente ? cliente.codigo : 'Vazio'}}</div>
+          <div class="dx-field-value">ID: {{cliente ? cliente.id : 'Vazio'}}</div>
+          <div class="dx-field-value">Contato:</div>
+        </div>
+      </div>
+      <div class="dx-card">
+        <div class="dx-fieldset">
+          <div class="dx-field">
+            <dx-data-grid #locacoes_grid
+                          id="locacoes_grid"
+                          keyExpr="id"
+                          [disabled]="disableItens"
+                          [dataSource]="locacoes"
+                          [repaintChangesOnly]="true"
+                          [showBorders]="true"
+                          [remoteOperations]="true"
+                          (onSaving)="salvarLocacao($event)"
+            >
+              <dxo-scrolling mode="virtual"></dxo-scrolling>
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxo-editing
+                mode="popup"
+                [allowAdding]="true"
+                [allowUpdating]="true"
+                [allowDeleting]="true"
+                [useIcons]="true"
+              ></dxo-editing>
+
+                <dxo-master-detail [enabled]="true" template="itensCellTemplate"></dxo-master-detail>
+
+                  <dxi-column dataField="datalocacao" dataType="date" caption="Data Locacao"></dxi-column>
+                  <dxi-column dataField="datadevolucao" dataType="date" caption="Data Devolucao"></dxi-column>
+
+                  <dxi-column dataField="itens" [visible]="false" caption="Itens" cellTemplate="itensCellTemplate" editCellTemplate="itensEditCellTemplate"></dxi-column>
+                  <div *dxTemplate="let itensLocacao of 'itensCellTemplate'">
+<!--                    {{itensLocacao | firstKeyToConsole}}-->
+                    <dx-data-grid [dataSource]="itensLocacao.data.itens">
+                        <dxi-column dataField="filme" cellTemplate="filmeCellTemplate"></dxi-column>
+                        <div *dxTemplate="let data of 'filmeCellTemplate'">{{data.value.nome ? data.value.nome : 'nao tem valor'}}</div>
+                        <dxi-column dataField="quantidade"></dxi-column>
+                        <dxi-column dataField="valoritem"></dxi-column>
+                    </dx-data-grid>
+                  </div>
+
+              <div *dxTemplate="let itensLocacao of 'itensEditCellTemplate'">
+                <dx-data-grid [dataSource]="itensLocacao.data.itens">
+
+                  <dxo-editing mode="batch"
+                               [allowAdding]="true"
+                               [allowUpdating]="true"
+                               [allowDeleting]="true"
+                               [useIcons]="true">
+                  </dxo-editing>
+
+                  <dxi-column dataField="filme" editCellTemplate="filmeEditCellTemplate"></dxi-column>
+                  <div *dxTemplate="let data of 'filmeEditCellTemplate'">{{data.value.nome ? data.value.nome : 'nao tem valor'}}</div>
+                  <dxi-column dataField="quantidade"></dxi-column>
+                  <dxi-column dataField="valoritem"></dxi-column>
+                </dx-data-grid>
+              </div>
+
+            </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dx-fieldset">
+    <dx-button
+      id="salvarlocacao"
+      text="SALVAR"
+      type="success"
+      [useSubmitBehavior]="true"
+      [disabled]="true"
+    >
+    </dx-button>
+  </div>
+</div>

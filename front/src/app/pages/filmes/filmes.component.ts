@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Filmes} from "../../shared/models/filmes";
+import { Filme} from "../../shared/model/filme";
 import { FilmesService} from "../../shared/services/filmes.service";
 import {HttpParams} from "@angular/common/http";
 import applyChanges from "devextreme/data/apply_changes";
@@ -11,7 +11,7 @@ import applyChanges from "devextreme/data/apply_changes";
 })
 export class FilmesComponent implements OnInit {
 
-  filmes: Filmes[] = [];
+  filmes: Filme[] = [];
 
   constructor(public _filmesService: FilmesService) {
   }

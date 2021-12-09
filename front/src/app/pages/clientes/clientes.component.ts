@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ClientesService} from "../../shared/services/clientes.service";
-import {Clientes} from "../../shared/models/clientes";
+import {ClienteService} from "../../shared/services/cliente.service";
+import {Cliente} from "../../shared/model/cliente";
 import DevExpress from "devextreme";
 import applyChanges from 'devextreme/data/apply_changes'
 import {BehaviorSubject} from "rxjs";
@@ -18,10 +18,10 @@ export class ClientesComponent implements OnInit {
   @ViewChild('clientes_grid', {static:true})
   private cliente_grid = {} as DxDataGridComponent;
 
-  private clientes$ = new BehaviorSubject<Clientes[]>([]);
-  clientes: Clientes[] = [];
+  private clientes$ = new BehaviorSubject<Cliente[]>([]);
+  clientes: Cliente[] = [];
 
-  constructor(public _clienteService: ClientesService) {
+  constructor(public _clienteService: ClienteService) {
   }
 
   salvarCliente(event: any) {

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Clientes} from "../models/clientes";
+import {Cliente} from "../model/cliente";
 import {take, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
+export class ClienteService {
 
   private readonly clientesAPI = 'http://localhost:8080/clientes/';
 
   constructor(private http:HttpClient) { }
 
   getClientes() {
-    return this.http.get<Clientes[]>(this.clientesAPI + 'todos')
+    return this.http.get<Cliente[]>(this.clientesAPI + 'todos')
       .pipe( tap(console.log) )
   }
 
@@ -22,7 +22,7 @@ export class ClientesService {
   }
 
   putClientes(cliente: JSON, id:number ) {
-    return this.http.put<Clientes>(this.clientesAPI + id, cliente);
+    return this.http.put<Cliente>(this.clientesAPI + id, cliente);
   }
 
   deleteClientes(id:number){

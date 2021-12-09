@@ -1,6 +1,7 @@
 package com.example.takevideo.controller;
-import com.example.takevideo.model.ItemLocacao;
+import com.example.takevideo.model.Cliente;
 import com.example.takevideo.model.Locacao;
+import com.example.takevideo.repository.ClientesRepository;
 import com.example.takevideo.repository.LocacoesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.List;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/locacoes") // This means URL's start with /demo (after Application path)
@@ -19,8 +20,10 @@ public class LocacoesController {
     @Autowired
     private LocacoesRepository locacoesRepository;
 
+    @Autowired
+    private ClientesRepository clientesRepository;
 
-    @PostMapping(value = "salvar")
+    @PostMapping(value = "/salvar")
     public ResponseEntity<Locacao> salvar (@RequestBody Locacao locacao){
 
         locacao.setValorlocacao( BigDecimal.ZERO );
@@ -39,7 +42,7 @@ public class LocacoesController {
         return new ResponseEntity<>(nova, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "todos")
+    @GetMapping(value = "/todos")
     public @ResponseBody Iterable<Locacao> todasLocacoes() {
         return locacoesRepository.findAll();
     }
@@ -50,14 +53,21 @@ public class LocacoesController {
         return ResponseEntity.ok().body(b);
     }
 
-    @DeleteMapping("{id}")
-    public String deletar(Long id){
-        Locacao d = locacoesRepository.findById(id).get();
-        locacoesRepository.delete(d);
-        return "Deletado";
+    @GetMapping("/cliente/{idCliente}")
+    public ResponseEntity<List<Locacao>> buscarPorCliente(@PathVariable(value = "idCliente") Long idCliente) {
+        Cliente cliente = clientesRepository.findById(idCliente).get();
+        List<Locacao> b = locacoesRepository.findByCliente(cliente);
+        return ResponseEntity.ok().body(b);
     }
 
-    @PutMapping("{id}")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Locacao> deletar(@PathVariable Long id){
+        Locacao d = locacoesRepository.findById(id).get();
+        locacoesRepository.delete(d);
+        return ResponseEntity.ok().body(d);
+    }
+
+    @PutMapping("/{id}")
     public  ResponseEntity<Locacao> alterar (@RequestBody Locacao locacao, @PathVariable Long id) {
 
         Locacao altera = locacoesRepository.findById(id).get();
