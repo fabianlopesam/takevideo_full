@@ -1,6 +1,29 @@
 <h2>Locações</h2>
 <div class="dx-form">
   <div class="dx-card">
+
+
+    <div class="dx-fieldset">
+      <dx-button
+        id="salvarLocacao"
+        text="SALVAR"
+        type="success"
+        [useSubmitBehavior]="true"
+        [disabled]="disableBotoes"
+      >
+      </dx-button>
+
+      <dx-button
+        id="cancelarLocacao"
+        text="CANCELAR"
+        type="cancel"
+        [useSubmitBehavior]="true"
+        [disabled]="disableBotoes"
+      ></dx-button>
+
+    </div>
+
+
     <div class="dx-fieldset">
       <div class="dx-fieldset-header">Cliente:</div>
       <div class="dx-field">
@@ -47,7 +70,9 @@
 <!--                  {{itensLocacao | firstKeyToConsole}}-->
                   <dx-data-grid
                     [dataSource]="itensLocacao.data.itens"
-                    [showBorders]="true">
+                    [showBorders]="true"
+                    (onSaving)="salvarLocacao($event)">>
+
 
                     <dxo-editing mode="batch"
                                  [allowAdding]="true"
@@ -56,16 +81,19 @@
                                  [useIcons]="true">
                     </dxo-editing>
 
+                    <dxi-column dataField="filme">
+                      <dxo-lookup
+                                     [dataSource]="filmes"
+                                     displayExpr="nome"
+                                     valueExpr="id"
+                      ></dxo-lookup>
+                    </dxi-column>
+                    <dxi-column dataField="quantidade"></dxi-column>
+                    <dxi-column dataField="valoritem"></dxi-column>
+
                   </dx-data-grid>
 
-                  <dxi-column dataField="filme" editCellTemplate="filmeEditCellTemplate">
-                    <dx-select-box [width]="600"
-                                   [dataSource]="filmes"
-                                   displayExpr="nome"
-                    ></dx-select-box>
-                  </dxi-column>
-                  <dxi-column dataField="quantidade"></dxi-column>
-                  <dxi-column dataField="valoritem"></dxi-column>
+
                 </div>
 
               <dxo-master-detail [enabled]="true" template="itensCellTemplate"></dxo-master-detail>
@@ -86,15 +114,5 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="dx-fieldset">
-    <dx-button
-      id="salvarlocacao"
-      text="SALVAR"
-      type="success"
-      [useSubmitBehavior]="true"
-      [disabled]="true"
-    >
-    </dx-button>
   </div>
 </div>

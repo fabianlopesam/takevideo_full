@@ -15,13 +15,14 @@ import applyChanges from "devextreme/data/apply_changes";
 export class LocacoesComponent implements OnInit {
 
   locacoes: any;
-  filmes: any;
+  filmes = {};
 
   locacao: Locacao = new Locacao();
   cliente: Cliente = new Cliente();
 
   disableLocacoes: boolean = true;
   disableItens: boolean = true;
+  disableBotoes: boolean = true;
 
   constructor(public _locacoesService: LocacoesService, public _filmesService: FilmesService) {
 
@@ -34,6 +35,7 @@ export class LocacoesComponent implements OnInit {
   clienteChange(event: any) {
     this.disableLocacoes = false;
     this.disableItens = false;
+    this.disableBotoes = false;
     this._locacoesService.getLocacoesPorCliente(event.id).subscribe(dados => this.locacoes = dados);
     this.filmes = this._filmesService.getFilmes();
   }
