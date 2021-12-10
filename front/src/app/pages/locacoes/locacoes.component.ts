@@ -20,8 +20,8 @@ export class LocacoesComponent implements OnInit {
   locacao: Locacao = new Locacao();
   cliente: Cliente = new Cliente();
 
-  disableLocacoes: boolean = false;
-  disableItens: boolean = false;
+  disableLocacoes: boolean = true;
+  disableItens: boolean = true;
 
   constructor(public _locacoesService: LocacoesService, public _filmesService: FilmesService) {
 

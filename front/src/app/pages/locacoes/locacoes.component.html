@@ -26,8 +26,7 @@
                           [repaintChangesOnly]="true"
                           [showBorders]="true"
                           [remoteOperations]="true"
-                          (onSaving)="salvarLocacao($event)"
-            >
+                          (onSaving)="salvarLocacao($event)">
               <dxo-scrolling mode="virtual"></dxo-scrolling>
               <dxo-paging [enabled]="false"></dxo-paging>
               <dxo-editing
@@ -36,42 +35,54 @@
                 [allowUpdating]="true"
                 [allowDeleting]="true"
                 [useIcons]="true"
-              ></dxo-editing>
+              >
+              </dxo-editing>
 
-                <dxo-master-detail [enabled]="true" template="itensCellTemplate"></dxo-master-detail>
+                <dxi-column dataField="datalocacao" dataType="date" caption="Data Locacao"></dxi-column>
+                <dxi-column dataField="datadevolucao" dataType="date" caption="Data Devolucao"></dxi-column>
+                <dxi-column dataField="itens" [visible]="false" caption="Itens" cellTemplate="itensCellTemplate"
+                            editCellTemplate="itensEditCellTemplate"></dxi-column>
 
-                  <dxi-column dataField="datalocacao" dataType="date" caption="Data Locacao"></dxi-column>
-                  <dxi-column dataField="datadevolucao" dataType="date" caption="Data Devolucao"></dxi-column>
+                <div *dxTemplate="let itensLocacao of 'itensEditCellTemplate'">
+<!--                  {{itensLocacao | firstKeyToConsole}}-->
+                  <dx-data-grid
+                    [dataSource]="itensLocacao.data.itens"
+                    [showBorders]="true">
 
-                  <dxi-column dataField="itens" [visible]="false" caption="Itens" cellTemplate="itensCellTemplate" editCellTemplate="itensEditCellTemplate"></dxi-column>
-                  <div *dxTemplate="let itensLocacao of 'itensCellTemplate'">
-<!--                    {{itensLocacao | firstKeyToConsole}}-->
-                    <dx-data-grid [dataSource]="itensLocacao.data.itens">
-                        <dxi-column dataField="filme" cellTemplate="filmeCellTemplate"></dxi-column>
-                        <div *dxTemplate="let data of 'filmeCellTemplate'">{{data.value.nome ? data.value.nome : 'nao tem valor'}}</div>
-                        <dxi-column dataField="quantidade"></dxi-column>
-                        <dxi-column dataField="valoritem"></dxi-column>
-                    </dx-data-grid>
-                  </div>
+                    <dxo-editing mode="batch"
+                                 [allowAdding]="true"
+                                 [allowUpdating]="true"
+                                 [allowDeleting]="true"
+                                 [useIcons]="true">
+                    </dxo-editing>
 
-              <div *dxTemplate="let itensLocacao of 'itensEditCellTemplate'">
+                  </dx-data-grid>
+
+                  <dxi-column dataField="filme" editCellTemplate="filmeEditCellTemplate">
+                    <dx-select-box [width]="600"
+                                   [dataSource]="filmes"
+                                   displayExpr="nome"
+                    ></dx-select-box>
+                  </dxi-column>
+                  <dxi-column dataField="quantidade"></dxi-column>
+                  <dxi-column dataField="valoritem"></dxi-column>
+                </div>
+
+              <dxo-master-detail [enabled]="true" template="itensCellTemplate"></dxo-master-detail>
+
+              <div *dxTemplate="let itensLocacao of 'itensCellTemplate'">
+                <!--                    {{itensLocacao | firstKeyToConsole}}-->
                 <dx-data-grid [dataSource]="itensLocacao.data.itens">
-
-                  <dxo-editing mode="batch"
-                               [allowAdding]="true"
-                               [allowUpdating]="true"
-                               [allowDeleting]="true"
-                               [useIcons]="true">
-                  </dxo-editing>
-
-                  <dxi-column dataField="filme" editCellTemplate="filmeEditCellTemplate"></dxi-column>
-                  <div *dxTemplate="let data of 'filmeEditCellTemplate'">{{data.value.nome ? data.value.nome : 'nao tem valor'}}</div>
+                  <dxi-column dataField="filme" cellTemplate="filmeCellTemplate"></dxi-column>
+                  <div
+                    *dxTemplate="let data of 'filmeCellTemplate'">{{data.value.nome ? data.value.nome : 'nao tem valor'}}</div>
                   <dxi-column dataField="quantidade"></dxi-column>
                   <dxi-column dataField="valoritem"></dxi-column>
                 </dx-data-grid>
               </div>
 
             </dx-data-grid>
+          </div>
         </div>
       </div>
     </div>
