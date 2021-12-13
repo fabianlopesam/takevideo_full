@@ -1,4 +1,4 @@
-import {itemLocacao} from "./itemLocacao";
+import {ItemLocacao} from "./itemLocacao";
 import {Cliente} from "./cliente";
 
 export  class Locacao {
@@ -6,5 +6,5 @@ export  class Locacao {
   cliente!: Cliente;
   datalocacao!: Date;
   datadevolucao!: Date;
-  itens!: Array<itemLocacao>;
+  itens!: Array<ItemLocacao>;
 }

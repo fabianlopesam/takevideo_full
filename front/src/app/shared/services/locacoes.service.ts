@@ -33,8 +33,8 @@ export class LocacoesService {
     return this.http.post(this.locacoesAPI + 'salvar', locacao);
   }
 
-  putLocacoes(locacao: JSON, id:number ) {
-    return this.http.put<Locacao>(this.locacoesAPI + id, locacao);
+  putLocacoes(locacao: Locacao) {
+    return this.http.put<Locacao>(this.locacoesAPI, locacao);
   }
 
   deleteLocacoes(id:number){

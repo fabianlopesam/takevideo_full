@@ -43,7 +43,6 @@
           <div class="dx-field">
             <dx-data-grid #locacoes_grid
                           id="locacoes_grid"
-                          keyExpr="id"
                           [disabled]="disableItens"
                           [dataSource]="locacoes"
                           [repaintChangesOnly]="true"
@@ -75,8 +74,7 @@
                     [repaintChangesOnly]="true"
                     [showBorders]="true"
                     [remoteOperations]="true"
-                    [showBorders]="true"
-                    (onSaving)="salvarItensLocacao($event)">
+                    (onSaving)="salvarItensLocacao($event, itensLocacao)">
 
                     <dxo-editing mode="batch"
                                  [allowAdding]="true"
@@ -87,22 +85,20 @@
 
                     <dxi-column
                       dataField="filme"
-                      [width]="150"
-                      [allowSorting]="false">
-                      editCellTemplate="filmesLookup">
+                      [allowSorting]="false"
+                      cellTemplate="filmesLookup">
 
                       <dxo-lookup
                         [dataSource]="filmes"
-                        displayExpr="nome"
-                        valueExpr="id">
+                        displayExpr="nome">
                       </dxo-lookup>
 
                     </dxi-column>
 
                     <div *dxTemplate="let data of 'filmesLookup'">{{data.value.nome ? data.value.nome : 'nome vazio'}} {{data.value.valorunitario ? data.valorunitario : 'nao tem valor'}}</div>
 
-                    <dxi-column dataField="quantidade"></dxi-column>
-                    <dxi-column dataField="valoritem"></dxi-column>
+                    <dxi-column dataField="quantidade" [width]="100"></dxi-column>
+                    <dxi-column dataField="valoritem" [width]="100"></dxi-column>
 
                   </dx-data-grid>
 

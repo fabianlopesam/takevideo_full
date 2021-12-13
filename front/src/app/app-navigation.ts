@@ -10,7 +10,7 @@ export const navigation = [
   },
   {
     text: 'Filmes',
-    path: '/filmes'
+    path: '/filme'
   },
   {
     text: 'Locacoes',

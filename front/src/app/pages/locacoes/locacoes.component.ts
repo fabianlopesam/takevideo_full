@@ -41,7 +41,7 @@ export class LocacoesComponent implements OnInit {
       sort: "nome"
     };
 
-    // console.log(this.filmes);
+    // console.log(this.filme);
 
   }
 
@@ -54,17 +54,19 @@ export class LocacoesComponent implements OnInit {
     this.disableItens = false;
     this.disableBotoes = false;
     this._locacoesService.getLocacoesPorCliente(event.id).subscribe(dados => this.locacoes = dados);
-    //this.filmes = this._filmesService.getFilmes().subscribe(dados => this.filmes = dados);
+    //this.filme = this._filmesService.getFilmes().subscribe(dados => this.filme = dados);
   }
 
-  salvarItensLocacao(itens: any){
+  salvarItensLocacao(itens: any, data: any){
 
-    console.log('itens');
+    // for (let change of itens.changes) {
+    //     change.data.setValue(change.data.value);
+    // }
+    data.setValue(itens.changes.map((x: any)=>{
+      let f = Object.assign(x.key, x.data);
+      return f;
+    }));
     console.log(itens);
-    for (let change of itens.changes) {
-        change.data.setValue(change.data.value);
-    }
-
   }
 
   salvarLocacao(event: any) {
@@ -92,14 +94,14 @@ export class LocacoesComponent implements OnInit {
           console.log('U');
           change.data = Object.assign(change.key, change.data);
           console.log(3);
-          let dados = await this._locacoesService.putLocacoes(change.data, change.key.id).toPromise();
+          let dados = await this._locacoesService.putLocacoes(change.data).toPromise();
           console.log(4);
           this.locacoes = applyChanges(this.locacoes, [dados], { keyExpr: 'id' })
           console.log(5);
           break;
         case 'remove':
           console.log('D');
-          await this._locacoesService.deleteLocacoes(change.key.id).toPromise();
+          await this._locacoesService.deleteLocacoes(change.key).toPromise();
           break;
         default:
           console.log(change.type);
@@ -113,8 +115,8 @@ export class LocacoesComponent implements OnInit {
   iniciarGridItens(event: any){
 
     event.data.itens = {};
-    //this.filmes = this._filmesService.getFilmes().subscribe(dados => this.filmes = dados);
-    //console.log(this.filmes);
+    //this.filme = this._filmesService.getFilmes().subscribe(dados => this.filme = dados);
+    //console.log(this.filme);
   }
 
 }

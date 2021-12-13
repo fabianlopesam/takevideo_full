@@ -1,10 +1,10 @@
 import {Locacao} from "./locacao";
 import {Filme} from "./filme";
 
-export interface itemLocacao {
+export interface ItemLocacao {
   id: number;
   locacao: Locacao;
-  filmes: Filme;
+  filme: Filme;
   quantidade: number;
   valoritem: number;
 }

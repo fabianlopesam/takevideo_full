@@ -67,9 +67,10 @@ public class LocacoesController {
         return ResponseEntity.ok().body(d);
     }
 
-    @PutMapping("/{id}")
-    public  ResponseEntity<Locacao> alterar (@RequestBody Locacao locacao, @PathVariable Long id) {
+    @PutMapping()
+    public  ResponseEntity<Locacao> alterar (@RequestBody Locacao locacao) {
 
+/*
         Locacao altera = locacoesRepository.findById(id).get();
         altera.setValorlocacao(BigDecimal.ZERO);
         altera.setDatalocacao(locacao.getDatalocacao());
@@ -82,9 +83,10 @@ public class LocacoesController {
             item.setValoritem(item.getFilme().getValorunitario().multiply(new BigDecimal(item.getQuantidade())));
             altera.setValorlocacao(altera.getValorlocacao().add(item.getValoritem()));
         });
+*/
 
         //return ResponseEntity.ok(locacoesRepository.save(altera));
-        return ResponseEntity.ok(altera);
+        return ResponseEntity.ok(locacoesRepository.save(locacao));
     }
 
     @PutMapping("/devolucao/{id}")
