@@ -40,7 +40,8 @@ export class LocacoesComponent implements OnInit {
       }),
       sort: "nome"
     };
-    console.log(this.filmes);
+
+    // console.log(this.filmes);
 
   }
 
@@ -56,15 +57,24 @@ export class LocacoesComponent implements OnInit {
     //this.filmes = this._filmesService.getFilmes().subscribe(dados => this.filmes = dados);
   }
 
+  salvarItensLocacao(itens: any){
+
+    console.log('itens');
+    console.log(itens);
+    for (let change of itens.changes) {
+        change.data.setValue(change.data.value);
+    }
+
+  }
+
   salvarLocacao(event: any) {
 
     event.cancel = true;
     console.log(event);
 
     console.log(1);
-    //event.promise = this.processSaving(event);
+    event.promise = this.processSaving(event);
     console.log(6);
-    event.cancel = false;
 
   }
 

@@ -13,8 +13,8 @@ export class FilmesService {
   constructor(private http:HttpClient) { }
 
   getFilmes() {
-    return this.http.get<Filme[]>(this.filmesAPI + 'todos')
-      .pipe( tap(console.log) )
+    return this.http.get<Filme[]>(this.filmesAPI + 'todos');
+      // .pipe( tap(console.log) )
   }
 
   postFilmes(filmes: JSON ) {

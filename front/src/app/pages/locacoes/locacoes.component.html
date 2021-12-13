@@ -3,25 +3,25 @@
   <div class="dx-card">
 
 
-    <div class="dx-fieldset">
-      <dx-button
-        id="salvarLocacao"
-        text="SALVAR"
-        type="success"
-        [useSubmitBehavior]="true"
-        [disabled]="disableBotoes"
-      >
-      </dx-button>
+<!--    <div class="dx-fieldset">-->
+<!--      <dx-button-->
+<!--        id="salvarLocacao"-->
+<!--        text="SALVAR"-->
+<!--        type="success"-->
+<!--        [useSubmitBehavior]="true"-->
+<!--        [disabled]="disableBotoes"-->
+<!--      >-->
+<!--      </dx-button>-->
 
-      <dx-button
-        id="cancelarLocacao"
-        text="CANCELAR"
-        type="cancel"
-        [useSubmitBehavior]="true"
-        [disabled]="disableBotoes"
-      ></dx-button>
+<!--      <dx-button-->
+<!--        id="cancelarLocacao"-->
+<!--        text="CANCELAR"-->
+<!--        type="cancel"-->
+<!--        [useSubmitBehavior]="true"-->
+<!--        [disabled]="disableBotoes"-->
+<!--      ></dx-button>-->
 
-    </div>
+<!--    </div>-->
 
 
     <div class="dx-fieldset">
@@ -51,6 +51,7 @@
                           [remoteOperations]="true"
                           (onInitNewRow)="iniciarGridItens($event)"
                           (onSaving)="salvarLocacao($event)">
+
               <dxo-scrolling mode="virtual"></dxo-scrolling>
               <dxo-paging [enabled]="false"></dxo-paging>
               <dxo-editing
@@ -75,7 +76,7 @@
                     [showBorders]="true"
                     [remoteOperations]="true"
                     [showBorders]="true"
-                    (onSaving)="salvarLocacao($event)">
+                    (onSaving)="salvarItensLocacao($event)">
 
                     <dxo-editing mode="batch"
                                  [allowAdding]="true"
@@ -88,7 +89,7 @@
                       dataField="filme"
                       [width]="150"
                       [allowSorting]="false">
-<!--                      editCellTemplate="filmesLookup">-->
+                      editCellTemplate="filmesLookup">
 
                       <dxo-lookup
                         [dataSource]="filmes"
@@ -98,7 +99,7 @@
 
                     </dxi-column>
 
-<!--                    <div *dxTemplate="let data of 'filmesLookup'">{{data.value.nome ? data.value.nome : 'nome vazio'}} {{data.value.valorunitario ? data.valorunitario : 'nao tem valor'}}</div>-->
+                    <div *dxTemplate="let data of 'filmesLookup'">{{data.value.nome ? data.value.nome : 'nome vazio'}} {{data.value.valorunitario ? data.valorunitario : 'nao tem valor'}}</div>
 
                     <dxi-column dataField="quantidade"></dxi-column>
                     <dxi-column dataField="valoritem"></dxi-column>

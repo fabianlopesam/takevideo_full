@@ -14,26 +14,27 @@ export class LocacoesService {
   constructor(private http: HttpClient ) { }
 
   getTodasLocacoes() {
-    return this.http.get<Locacao>(this.locacoesAPI + 'todos')
-      .pipe( tap(console.log) )
+    return this.http.get<Locacao>(this.locacoesAPI + 'todos');
+      // .pipe( tap(console.log) )
   }
 
   getLocacaoById(id: number) {
-    return this.http.get<Locacao>(this.locacoesAPI + id)
-      .pipe( tap(console.log) )
+    return this.http.get<Locacao>(this.locacoesAPI + id);
+      // .pipe( tap(console.log) )
   }
 
   getLocacoesPorCliente(idCliente: number) {
-    return this.http.get<Locacao[]>(this.locacoesAPI + 'cliente/'+idCliente)
-      .pipe( tap(console.log) )
+    return this.http.get<Locacao[]>(this.locacoesAPI + 'cliente/'+idCliente);
+      // .pipe( tap(console.log) )
   }
 
-  postLocacoes(cliente: JSON ) {
-    return this.http.post(this.locacoesAPI + 'salvar', cliente);
+  postLocacoes(locacao: JSON ) {
+    console.log(locacao)
+    return this.http.post(this.locacoesAPI + 'salvar', locacao);
   }
 
-  putLocacoes(cliente: JSON, id:number ) {
-    return this.http.put<Cliente>(this.locacoesAPI + id, cliente);
+  putLocacoes(locacao: JSON, id:number ) {
+    return this.http.put<Locacao>(this.locacoesAPI + id, locacao);
   }
 
   deleteLocacoes(id:number){

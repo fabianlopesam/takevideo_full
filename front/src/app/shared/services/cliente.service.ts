@@ -13,8 +13,8 @@ export class ClienteService {
   constructor(private http:HttpClient) { }
 
   getClientes() {
-    return this.http.get<Cliente[]>(this.clientesAPI + 'todos')
-      .pipe( tap(console.log) )
+    return this.http.get<Cliente[]>(this.clientesAPI + 'todos');
+      // .pipe( tap(console.log) )
   }
 
   postClientes(cliente: JSON ) {
