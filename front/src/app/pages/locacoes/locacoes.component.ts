@@ -6,6 +6,7 @@ import { Cliente} from "../../shared/model/cliente";
 import {FilmesService} from "../../shared/services/filmes.service";
 import {Filme} from "../../shared/model/filme";
 import applyChanges from "devextreme/data/apply_changes";
+import CustomStore from "devextreme/data/custom_store"
 
 @Component({
   selector: 'app-locacoes',
@@ -26,6 +27,21 @@ export class LocacoesComponent implements OnInit {
 
   constructor(public _locacoesService: LocacoesService, public _filmesService: FilmesService) {
 
+    this.filmes = {
+      store: new CustomStore({
+        key: "id",
+        loadMode: "raw",
+        load: () => {
+          // Returns an array of objects that have the following structure:
+          // { id: 1, name: "John Doe" }
+          return this._filmesService.getFilmes()
+            .toPromise();
+        }
+      }),
+      sort: "nome"
+    };
+    console.log(this.filmes);
+
   }
 
   ngOnInit(): void {
@@ -37,7 +53,7 @@ export class LocacoesComponent implements OnInit {
     this.disableItens = false;
     this.disableBotoes = false;
     this._locacoesService.getLocacoesPorCliente(event.id).subscribe(dados => this.locacoes = dados);
-    this.filmes = this._filmesService.getFilmes();
+    //this.filmes = this._filmesService.getFilmes().subscribe(dados => this.filmes = dados);
   }
 
   salvarLocacao(event: any) {
@@ -48,6 +64,8 @@ export class LocacoesComponent implements OnInit {
     console.log(1);
     //event.promise = this.processSaving(event);
     console.log(6);
+    event.cancel = false;
+
   }
 
   async processSaving(event: any) {
@@ -80,6 +98,13 @@ export class LocacoesComponent implements OnInit {
       console.log(2.1);
     }
     event.cancel = false;
+  }
+
+  iniciarGridItens(event: any){
+
+    event.data.itens = {};
+    //this.filmes = this._filmesService.getFilmes().subscribe(dados => this.filmes = dados);
+    //console.log(this.filmes);
   }
 
 }

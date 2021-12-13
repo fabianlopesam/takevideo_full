@@ -49,6 +49,7 @@
                           [repaintChangesOnly]="true"
                           [showBorders]="true"
                           [remoteOperations]="true"
+                          (onInitNewRow)="iniciarGridItens($event)"
                           (onSaving)="salvarLocacao($event)">
               <dxo-scrolling mode="virtual"></dxo-scrolling>
               <dxo-paging [enabled]="false"></dxo-paging>
@@ -70,9 +71,11 @@
 <!--                  {{itensLocacao | firstKeyToConsole}}-->
                   <dx-data-grid
                     [dataSource]="itensLocacao.data.itens"
+                    [repaintChangesOnly]="true"
                     [showBorders]="true"
-                    (onSaving)="salvarLocacao($event)">>
-
+                    [remoteOperations]="true"
+                    [showBorders]="true"
+                    (onSaving)="salvarLocacao($event)">
 
                     <dxo-editing mode="batch"
                                  [allowAdding]="true"
@@ -81,13 +84,22 @@
                                  [useIcons]="true">
                     </dxo-editing>
 
-                    <dxi-column dataField="filme">
+                    <dxi-column
+                      dataField="filme"
+                      [width]="150"
+                      [allowSorting]="false">
+<!--                      editCellTemplate="filmesLookup">-->
+
                       <dxo-lookup
-                                     [dataSource]="filmes"
-                                     displayExpr="nome"
-                                     valueExpr="id"
-                      ></dxo-lookup>
+                        [dataSource]="filmes"
+                        displayExpr="nome"
+                        valueExpr="id">
+                      </dxo-lookup>
+
                     </dxi-column>
+
+<!--                    <div *dxTemplate="let data of 'filmesLookup'">{{data.value.nome ? data.value.nome : 'nome vazio'}} {{data.value.valorunitario ? data.valorunitario : 'nao tem valor'}}</div>-->
+
                     <dxi-column dataField="quantidade"></dxi-column>
                     <dxi-column dataField="valoritem"></dxi-column>
 
