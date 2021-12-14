@@ -28,7 +28,7 @@ export class LocacoesService {
       // .pipe( tap(console.log) )
   }
 
-  postLocacoes(locacao: JSON ) {
+  postLocacoes(locacao: Locacao ) {
     console.log(locacao)
     return this.http.post(this.locacoesAPI + 'salvar', locacao);
   }
